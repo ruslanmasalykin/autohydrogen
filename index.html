@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AUTOHYDROGEN</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='40' fill='%231E88E5'/%3E%3Ctext x='50' y='60' font-size='40' text-anchor='middle' fill='white'%3EA%3C/text%3E%3C/svg%3E" type="image/svg+xml">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&family=Open+Sans:wght@400;600&display=swap');
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            margin: 0;
+            background: #1A1A1A;
+            color: #E0E0E0;
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+        .nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+        .nav .logo {
+            font-family: 'Roboto', sans-serif;
+            font-size: 28px;
+            font-weight: 900;
+            color: #1E88E5;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-right: 20px;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+        }
+        .nav .menu-toggle {
+            display: none;
+            font-size: 24px;
+            color: #E0E0E0;
+            cursor: pointer;
+            margin-right: 20px;
+        }
+        .nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+        }
+        .nav ul li {
+            margin-left: 20px;
+        }
+        .nav ul li a {
+            color: #E0E0E0;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        .nav ul li a:hover {
+            color: #1E88E5;
+        }
+        .nav.active ul {
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            top: 60px;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            padding: 20px 0;
+            text-align: center;
+        }
+        .nav.active ul li {
+            margin: 10px 0;
+        }
+        .content {
+            margin-top: 80px;
+            padding: 20px 5%;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .hero {
+            text-align: center;
+            padding: 50px 15px;
+            background: linear-gradient(135deg, #212121 0%, #1E88E5 100%);
+            border-radius: 8px;
+            margin-bottom: 20px;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        .hero h1 {
+            font-family: 'Roboto', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #FFF;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        .hero p {
+            font-size: 12px;
+            max-width: 400px;
+            margin: 0 auto 15px;
+            color: #DDEEDD;
+        }
+        .hero .button {
+            background: #1E88E5;
+            color: #FFF;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 4px;
+            font-size: 12px;
+            text-decoration: none;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+        .hero .button:hover {
+            background: #1565C0;
+            transform: translateY(-2px);
+        }
+        .section {
+            padding: 20px 15px;
+            background: #212121;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+            animation: slideUp 1s ease-out;
+        }
+        @keyframes slideUp {
+            0% { transform: translateY(20px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+        .section h2 {
+            font-family: 'Roboto', sans-serif;
+            color: #1E88E5;
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        .services .service-item {
+            display: inline-block;
+            margin: 6px;
+            padding: 10px;
+            background: #2C2C2C;
+            border-radius: 4px;
+            width: 160px;
+            vertical-align: top;
+            transition: transform 0.3s ease;
+            font-size: 12px;
+        }
+        .services .service-item:hover {
+            transform: translateY(-5px);
+        }
+        .form-group {
+            margin-bottom: 10px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 4px;
+            font-size: 12px;
+        }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            max-width: 250px;
+            padding: 6px;
+            border: 1px solid #444;
+            border-radius: 3px;
+            background: #2C2C2C;
+            color: #E0E0E0;
+            font-size: 12px;
+        }
+        .form-group button {
+            background: #1E88E5;
+            color: #FFF;
+            padding: 6px 10px;
+            border: none;
+            border-radius: 3px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        .form-group button:hover {
+            background: #1565C0;
+        }
+        .footer {
+            text-align: center;
+            padding: 10px;
+            background: #1A1A1A;
+            color: #888;
+            box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.5);
+        }
+        .footer a {
+            color: #1E88E5;
+            text-decoration: none;
+            margin: 0 6px;
+            font-size: 11px;
+            transition: color 0.3s ease;
+        }
+        .footer a:hover {
+            color: #1565C0;
+        }
+        @media (max-width: 768px) {
+            .nav ul {
+                display: none;
+            }
+            .nav .menu-toggle {
+                display: block;
+            }
+            .nav.active ul {
+                display: flex;
+            }
+            .hero h1 { font-size: 24px; }
+            .hero p { font-size: 11px; }
+            .service-item { width: 100%; margin: 6px 0; }
+            .content { padding: 10px; }
+            .section { padding: 15px; }
+        }
+        @media (max-width: 480px) {
+            .hero { padding: 30px 10px; }
+            .hero h1 { font-size: 20px; }
+            .hero p { font-size: 10px; }
+            .section h2 { font-size: 18px; }
+            .services .service-item { font-size: 11px; }
+            .form-group input, .form-group textarea { max-width: 200px; }
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const nav = document.querySelector('.nav');
+
+            menuToggle.addEventListener('click', function() {
+                nav.classList.toggle('active');
+            });
+
+            // Додавання плавної прокрутки для меню
+            const navLinks = document.querySelectorAll('.nav ul li a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    targetElement.scrollIntoView({ behavior: 'smooth' });
+                    nav.classList.remove('active'); // Закриття меню на мобільних
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="nav">
+        <div class="logo">AUTOHYDROGEN</div>
+        <div class="menu-toggle">☰</div>
+        <ul>
+            <li><a href="#about">Про нас</a></li>
+            <li><a href="#services">Послуги</a></li>
+            <li><a href="#reviews">Відгуки</a></li>
+            <li><a href="#contact">Контакти</a></li>
+        </ul>
+    </div>
+    <div class="content">
+        <div class="hero">
+            <h1>Екологічна сила для вашого двигуна</h1>
+            <p>Використовуйте технологію газу Брауна для підвищення ефективності та екологічності вашого автомобіля.</p>
+            <a href="#contact" class="button">Дізнатися більше</a>
+        </div>
+
+        <div class="section about" id="about">
+            <h2>Про нас</h2>
+            <p>
+                <strong>AUTOHYDROGEN</strong> – це інноваційна компанія, що народилася з відваги та прагнення до змін. Її засновник, <strong>Денис Гавязь</strong>, герой, який із 2014 року боронив Україну на фронті, де отримав поранення. Після складної реабілітації Денис знайшов нове покликання – допомагати людям через екологічні технології. З підтримкою команди <strong>HYDROXY UKRAINE</strong>, яка надала йому професійне навчання та детальне керівництво, він освоїв технологію газу Брауна (HHO) і заснував свій бізнес.<br><br><strong>Що таке газ Брауна?</strong> HHO – це суміш водню та кисню, отримана шляхом електролізу води. Цей процес є абсолютно безпечним і екологічним: вода розщеплюється на компоненти за допомогою електричного струму, створюючи газ, який подається в двигун. Газ Брауна проникає в усі деталі двигуна, ефективно видаляючи наріст, сажу та відкладення, не завдаючи жодної шкоди металу чи гумовим компонентам. Процес очищення повністю контрольований, і ми використовуємо лише сертифіковане обладнання, що гарантує безпеку та довговічність двигуна.<br><br><strong>Як це працює?</strong> Газ Брауна вводиться в систему згоряння під час роботи двигуна. Він спалюється разом із паливом, створюючи додатковий кисень, який сприяє повному згорянню. Це знижує кількість шкідливих викидів, економить паливо та покращує продуктивність. Наш метод не потребує розбирання двигуна, що робить його швидким і зручним.<br><br><strong>Про HYDROXY UKRAINE:</strong> Наша партнерська компанія HYDROXY UKRAINE вже понад 10 років присутня на ринку, надаючи інноваційні рішення для автомобільної індустрії. Вони активно підтримують відкриття подібних точок по всій Україні, допомагаючи підприємцям, як Денис, розвивати екологічний бізнес. Сьогодні HYDROXY UKRAINE має представництва майже в кожному місті України, сприяючи сталому майбутньому та популяризації технології газу Брауна.<br><br>Сьогодні AUTOHYDROGEN – це місце, де кожен клієнт отримує якісний сервіс. Багато задоволених клієнтів повертаються до нас знову, переконавшись у високій ефективності наших послуг. Денис із гордістю ділиться: «Я щасливий, що можу допомагати людям, і радію, що нашу працю цінують». Кожен день команда знімає TikTok-контент, щоб надихати та інформувати автолюбителів про переваги технології.<br><br>Разом із <strong>HYDROXY UKRAINE</strong> ми рухаємося до сталого майбутнього автомобільної індустрії. <strong>Екологічні переваги:</strong> Зниження викидів CO2 на 20-30%, економія палива до 15%, подовження терміну служби двигуна на 20-25%.
+            </p>
+        </div>
+
+        <div class="section services" id="services">
+            <h2>Послуги</h2>
+            <div class="service-item">Чистка двигуна (до 2,8 л): 2500 грн</div>
+            <div class="service-item">Чистка двигуна (до 4,0 л): 3300 грн</div>
+            <div class="service-item">Чистка двигуна (до 6,0 л): 3800 грн</div>
+            <div class="service-item">Чистка для вантажівок та спецтехніки: 5000 грн</div>
+            <p>Додатково: Озонування, діагностика, консультації.</p>
+        </div>
+
+        <div class="section" id="reviews">
+            <h2>Відгуки</h2>
+            <p>
+                «Був у Вас 3-4 тижні тому, Мазда 6, 2.0 бензин, 2007 рік, пробіг 199 тис. Обороти на холостому ходу в холодне время почали падати, пару раз глохла. Після процедури тільки позитивні враження, все супер, двигун як годинник, тепер майже не чути і трохи резвіше стала набирати. Дякую. P.S. Рекомендую!!!» – Голиков Віктор.<br>
+                «Робив тут чистку двигуна. Скажу чесно без брехні. Мотор працює рівно, розхід палива впав, що навіть машина з’ясувала, скільки не їсть. Зранку мотор заводиться з пів тичка.» – Maximus.<br>
+                «Робили мені чистку двигуна на Нісан Х-Трейл Т30 дизель. Дуже дякую, машина ожила, розхід зменшився, коптити перестав.» – Валерій.
+            </p>
+        </div>
+
+        <div class="section contact" id="contact">
+            <h2>Контакти</h2>
+            <p>Телефон: <strong>+380954683596</strong><br>Адреса: вул. Садова 94, Запоріжжя<br>TikTok: <a href="https://tiktok.com/@denisgavaz027" style="color: #1E88E5;">@denisgavaz027</a></p>
+            <p>Зв’яжіться з нами для запису чи співпраці!</p>
+            <div class="form-group">
+                <label for="name">Ім'я:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Телефон:</label>
+                <input type="tel" id="phone" name="phone" required>
+            </div>
+            <div class="form-group">
+                <label for="message">Повідомлення:</label>
+                <textarea id="message" name="message" rows="4"></textarea>
+            </div>
+            <div class="form-group">
+                <button type="button" onclick="alert('Дякую за заявку! Ми зв’яжемося з вами найближчим часом.')">Відправити</button>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>© 2025 AUTOHYDROGEN. Усі права захищені.</p>
+            <a href="#about">Про нас</a> | <a href="#services">Послуги</a> | <a href="#reviews">Відгуки</a> | <a href="#contact">Контакти</a>
+        </div>
+    </div>
+</body>
+</html>
