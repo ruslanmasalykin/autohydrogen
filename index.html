@@ -232,28 +232,6 @@
             .form-group input, .form-group textarea { max-width: 200px; }
         }
     </style>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const menuToggle = document.querySelector('.menu-toggle');
-            const nav = document.querySelector('.nav');
-
-            menuToggle.addEventListener('click', function() {
-                nav.classList.toggle('active');
-            });
-
-            // Додавання плавної прокрутки для меню
-            const navLinks = document.querySelectorAll('.nav ul li a');
-            navLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href').substring(1);
-                    const targetElement = document.getElementById(targetId);
-                    targetElement.scrollIntoView({ behavior: 'smooth' });
-                    nav.classList.remove('active'); // Закриття меню на мобільних
-                });
-            });
-        });
-    </script>
 </head>
 <body>
     <div class="nav">
@@ -324,5 +302,26 @@
             <a href="#about">Про нас</a> | <a href="#services">Послуги</a> | <a href="#reviews">Відгуки</a> | <a href="#contact">Контакти</a>
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const nav = document.querySelector('.nav');
+
+            menuToggle.addEventListener('click', function() {
+                nav.classList.toggle('active');
+            });
+
+            const navLinks = document.querySelectorAll('.nav ul li a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    targetElement.scrollIntoView({ behavior: 'smooth' });
+                    nav.classList.remove('active');
+                });
+            });
+        });
+    </script>
 </body>
 </html>
